@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4942af0f-f03b-42ba-b024-00ea90ed6ea7" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/CDR_auto.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/cidaren.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FiddlerCore4.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/answer_questions/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/answer_questions/answer_questions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/basic_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/login.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/main_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/request_header.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/translate.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/decryptencrypt/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/decryptencrypt/debase64.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/decryptencrypt/encrypt_md5.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/log/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/log/log.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/publicInfo/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/publicInfo/publicInfo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/util/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/util/basic_util.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/util/handle_word_list.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/util/select_mean.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/util/word_revert.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/error.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/introduce.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/introduce.ui" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/music.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/setting.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/主界面.ui" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/错误.ui" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/首选项.ui" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vocabgo_headers.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/点我运行.bat" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2ttOvchbb6GPWneoeXnmFu2CDa7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Notification.DisplayName-DoNotAsk-Vcs Important Messages&quot;: &quot;VCS 重要消息&quot;,
+    &quot;Notification.DoNotAsk-Vcs Important Messages&quot;: &quot;true&quot;,
+    &quot;Python.answer_questions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_api.executor&quot;: &quot;Run&quot;,
+    &quot;Python.select_mean.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.word_revert.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/toolsBox/EnglishWordPass/CDR_auto/config&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\toolsBox\EnglishWordPass\CDR_auto\config" />
+      <recent name="D:\toolsBox\EnglishWordPass\Cidaren_Automatic_Answer-master" />
+      <recent name="D:\toolsBox\EnglishWordPass\Cidaren_Automatic_Answer-master\get token" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\toolsBox\EnglishWordPass\Cidaren_Automatic_Answer-master\get token" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CDR_auto" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
+        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="4942af0f-f03b-42ba-b024-00ea90ed6ea7" name="更改" comment="" />
+      <created>1741168137107</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1741168137107</updated>
+      <workItem from="1741168139144" duration="1409000" />
+      <workItem from="1741253823874" duration="1105000" />
+      <workItem from="1741255044467" duration="64000" />
+      <workItem from="1741255156739" duration="22000" />
+      <workItem from="1741255404776" duration="2241000" />
+      <workItem from="1741262235717" duration="9256000" />
+      <workItem from="1741271933155" duration="1778000" />
+      <workItem from="1741274193874" duration="2127000" />
+      <workItem from="1741325648737" duration="5174000" />
+      <workItem from="1741435048866" duration="1040000" />
+      <workItem from="1741436114013" duration="9065000" />
+      <workItem from="1741456429218" duration="6052000" />
+      <workItem from="1741493647711" duration="71000" />
+      <workItem from="1741494486756" duration="744000" />
+      <workItem from="1741496866695" duration="385000" />
+      <workItem from="1741497271403" duration="1603000" />
+      <workItem from="1741607848250" duration="195000" />
+      <workItem from="1741608051951" duration="2043000" />
+      <workItem from="1741611664873" duration="444000" />
+      <workItem from="1741957295726" duration="55000" />
+      <workItem from="1741957800762" duration="1046000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Cidaren_auto_plus$main.coverage" NAME="main 覆盖结果" MODIFIED="1741958202757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Cidaren_Automatic_Answer_master$test.coverage" NAME="test 覆盖结果" MODIFIED="1741274238659" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CDR_auto$main.coverage" NAME="main 覆盖结果" MODIFIED="1741609479672" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Cidaren_Automatic_Answer_master$main2.coverage" NAME="main2 覆盖结果" MODIFIED="1741493657896" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Cidaren_Automatic_Answer_master$select_mean.coverage" NAME="select_mean 覆盖结果" MODIFIED="1741338452300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util" />
+    <SUITE FILE_PATH="coverage/Cidaren_Automatic_Answer_master$test__1_.coverage" NAME="test (1) 覆盖结果" MODIFIED="1741437019150" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/get token" />
+    <SUITE FILE_PATH="coverage/Cidaren_Automatic_Answer_master$main.coverage" NAME="main 覆盖结果" MODIFIED="1741497607722" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Cidaren_Automatic_Answer_master$answer_questions.coverage" NAME="answer_questions 覆盖结果" MODIFIED="1741273223134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/answer_questions" />
+    <SUITE FILE_PATH="coverage/Cidaren_Automatic_Answer_master$word_revert.coverage" NAME="word_revert 覆盖结果" MODIFIED="1741497446485" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util" />
+    <SUITE FILE_PATH="coverage/Cidaren_Automatic_Answer_master$test1.coverage" NAME="test1 覆盖结果" MODIFIED="1741436575740" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/get token" />
+    <SUITE FILE_PATH="coverage/Cidaren_Automatic_Answer_master$main1.coverage" NAME="main1 覆盖结果" MODIFIED="1741460622826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Cidaren_Automatic_Answer_master$main_api.coverage" NAME="main_api 覆盖结果" MODIFIED="1741339059407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
+  </component>
+</project>
