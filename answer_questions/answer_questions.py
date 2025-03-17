@@ -216,19 +216,15 @@ def complete_sentence(public_info):
         return word_list[-1] if word_list else ""
 
     # 调用第三方代理的 ChatGPT API
-    def get_chatgpt_suggestion(prompt, config_file='../config/config.json'):
+    def get_chatgpt_suggestion(prompt,public_info):
         '''
         通过第三方代理调用 ChatGPT API 获取建议。
         '''
         try:
-
-            with open(config_file, 'r') as f:
-                config = json.load(f)
-
             # 获取 proxy_url 和 openai_key
-            proxy_url = config.get('proxy_url')
-            openai_key = config.get('openai_key')
-            model = config.get('model')
+            proxy_url = public_info.proxy_url
+            openai_key = public_info.openai_key
+            model = public_info.model
 
             if not proxy_url or not openai_key:
                 raise ValueError("配置文件中缺少 proxy_url 或 openai_key")
@@ -268,7 +264,7 @@ def complete_sentence(public_info):
     )
     print(prompt)
     # 获取 ChatGPT 的建议
-    suggested_word = get_chatgpt_suggestion(prompt).strip("'").strip('"')
+    suggested_word = get_chatgpt_suggestion(prompt,public_info).strip("'").strip('"')
     print(suggested_word)
     # 如果 ChatGPT 返回了建议，优先使用
     if suggested_word and suggested_word in candidate_words:
@@ -309,3 +305,5 @@ def answer(public_info, mode):
         showError()
         exit(-1)
     return option
+
+

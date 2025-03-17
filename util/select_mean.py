@@ -90,7 +90,8 @@ def select_mean(public_info) -> int:
         )
 
         # 调用ChatGPT进行判断
-        selected_option_index = get_chatgpt_suggestion(prompt)
+
+        selected_option_index = get_chatgpt_suggestion(prompt,public_info)
         select_module.logger.info(f"{prompt}")
         select_module.logger.info(f"{selected_option_index}")
 
@@ -166,20 +167,16 @@ def select_mean(public_info) -> int:
 #
 
 
-def get_chatgpt_suggestion(prompt, config_file='../config/config.json'):
+def get_chatgpt_suggestion(prompt, public_info):
     '''
     通过第三方代理调用 ChatGPT API 获取建议。
     从 JSON 文件中获取 proxy_url 和 openai_key。
     '''
     try:
-        # 从 JSON 文件读取配置信息
-        with open(config_file, 'r') as f:
-            config = json.load(f)
-
         # 获取 proxy_url 和 openai_key
-        proxy_url = config.get('proxy_url')
-        openai_key = config.get('openai_key')
-        model = config.get('model')
+        proxy_url = public_info.proxy_url
+        openai_key = public_info.openai_key
+        model = public_info.model
 
         if not proxy_url or not openai_key:
             raise ValueError("配置文件中缺少 proxy_url 或 openai_key")
@@ -205,12 +202,6 @@ def get_chatgpt_suggestion(prompt, config_file='../config/config.json'):
 
         # 解析返回的结果
         return result['choices'][0]['message']['content'].strip()
-    except FileNotFoundError:
-        print(f"配置文件 {config_file} 不存在")
-        return None
-    except json.JSONDecodeError:
-        print(f"配置文件 {config_file} 格式不正确")
-        return None
     except Exception as e:
         print(f"调用第三方代理 API 失败: {e}")
         return None

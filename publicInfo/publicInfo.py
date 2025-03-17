@@ -21,6 +21,10 @@ class PublicInfo:
             self._spend_min_time = user_config['spend_min_time']
             self._spend_max_time = user_config['spend_max_time']
             self._api_choices = user_config['api_choices']
+            self._proxy_url = user_config['proxy_url']
+            self._openai_key = user_config['openai_key']
+            self._model = user_config['model']
+            self._token = user_config['token']
         # 任务列表
         self.task_list = ""
         # query_answer
@@ -97,12 +101,35 @@ class PublicInfo:
     def api_choices(self) -> int:
         return self._api_choices
 
-    def input_info(self, min_time, max_time, min_time_2, max_time_2, choices_api):
+    @property
+    def proxy_url(self) -> str:
+        return self._proxy_url
+
+    @property
+    def openai_key(self) -> str:
+        return self._openai_key
+
+    @property
+    def model(self) -> str:
+        return self._model
+
+    def input_info(self, min_time, max_time, min_time_2, max_time_2, choices_api, proxy_url=None, openai_key=None, model=None, token=None):
         self._min_time = min_time
         self._max_time = max_time
         self._spend_min_time = min_time_2
         self._spend_max_time = max_time_2
         self._api_choices = choices_api
+
+        # Update the new parameters if provided
+        if proxy_url is not None:
+            self._proxy_url = proxy_url
+        if openai_key is not None:
+            self._openai_key = openai_key
+        if model is not None:
+            self._model = model
+        if token is not None:
+            self._token = token
+
         with open(os.path.join(self.path, "config", "config.json"), 'r', encoding="utf-8") as f:
             data = json.load(f)
             data['min_time'] = self._min_time
@@ -110,6 +137,11 @@ class PublicInfo:
             data['spend_min_time'] = self._spend_min_time
             data['spend_max_time'] = self._spend_max_time
             data['api_choices'] = self._api_choices
+            data['proxy_url'] = self._proxy_url
+            data['openai_key'] = self._openai_key
+            data['model'] = self._model
+            data['token'] = self._token
         data_str = json.dumps(data, indent=2)
         with open(os.path.join(self.path, "config", "config.json"), 'w', encoding="utf-8") as f:
             f.write(data_str)
+
