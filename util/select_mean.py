@@ -101,7 +101,7 @@ def select_mean(public_info) -> int:
             import re
             match = re.search(r'\d+', selected_option_index)
             if match:
-                selected_option_index = int(match.group())  # 提取并转换为数字
+                selected_option_index = int(match.group()) - 1  # 提取并转换为数字
                 if 0 <= selected_option_index < len(options):
                     select_module.logger.info(f"ChatGPT推荐选项: 第{selected_option_index + 1}个选项[{options[selected_option_index]}]")
                     return selected_option_index

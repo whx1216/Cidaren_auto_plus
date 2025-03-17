@@ -260,12 +260,12 @@ def complete_sentence(public_info):
         f"- 句子模板: '{content}'\n"
         f"- 中文意思: '{remark}'\n"
         f"- 候选单词: {', '.join(candidate_words)}\n"
-        f"重要！请直接返回最合适的单词，不要添加其他内容。"
+        f"重要！请直接返回最合适的单词或选择的单词的形态变体，不要添加其他内容。输出内容应当只有一个单词。"
     )
-    print(prompt)
+    # print(prompt)
     # 获取 ChatGPT 的建议
     suggested_word = get_chatgpt_suggestion(prompt,public_info).strip("'").strip('"')
-    print(suggested_word)
+    # print(suggested_word)
     # 如果 ChatGPT 返回了建议，优先使用
     if suggested_word and suggested_word in candidate_words:
         query_answer.logger.info(f"ChatGPT 推荐单词: {suggested_word}")
