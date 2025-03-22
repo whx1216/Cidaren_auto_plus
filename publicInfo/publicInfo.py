@@ -13,6 +13,8 @@ class PublicInfo:
     def __init__(self, path):
         self.get_word_list_result = {}
         self.path = path
+        # 检查并创建配置文件
+        self.check_and_create_config()
         with open(os.path.join(self.path, "config", "config.json"), 'r', encoding='utf-8') as f:
             # user config
             user_config = json.load(f)
@@ -77,6 +79,12 @@ class PublicInfo:
     def token(self):
         return self._token
 
+    @token.setter
+    def token(self, value):
+        self._token = value
+        # 更新配置文件
+        self.update_config_file()
+
     @property
     def task_type_choices(self):
         return self._task_choices
@@ -113,6 +121,37 @@ class PublicInfo:
     def model(self) -> str:
         return self._model
 
+
+    def check_and_create_config(self):
+        """检查配置文件是否存在，不存在则创建默认配置文件"""
+        config_dir = os.path.join(self.path, "config")
+        config_file = os.path.join(config_dir, "config.json")
+
+        # 检查配置目录是否存在，不存在则创建
+        if not os.path.exists(config_dir):
+            os.makedirs(config_dir)
+
+        # 检查配置文件是否存在，不存在则创建默认配置
+        if not os.path.exists(config_file):
+            default_config = {
+                "min_time": 1,
+                "max_time": 2,
+                "spend_min_time": 1,
+                "spend_max_time": 5,
+                "api_choices": 1,
+                "proxy_url": "https://xxxx.xxx/v1/chat/completions",
+                "openai_key": "sk-xxxxxx",
+                "model": "gpt-4o",
+                "token": ""
+            }
+
+            with open(config_file, 'w', encoding='utf-8') as f:
+                json.dump(default_config, f, indent=2, ensure_ascii=False)
+
+            log = Log("public_info")
+            log.logger.info("配置文件不存在，已创建默认配置文件")
+
+
     def input_info(self, min_time, max_time, min_time_2, max_time_2, choices_api, proxy_url=None, openai_key=None, model=None, token=None):
         self._min_time = min_time
         self._max_time = max_time
@@ -145,3 +184,11 @@ class PublicInfo:
         with open(os.path.join(self.path, "config", "config.json"), 'w', encoding="utf-8") as f:
             f.write(data_str)
 
+    def update_config_file(self):
+        """更新配置文件"""
+        config_file_path = os.path.join(self.path, "config", "config.json")
+        with open(config_file_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        data['token'] = self._token  # 更新 token 字段
+        with open(config_file_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)

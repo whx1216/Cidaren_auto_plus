@@ -1,27 +1,23 @@
-import en_core_web_sm
-import spacy
-
+import nltk
+from nltk.stem import WordNetLemmatizer
 from api.basic_api import use_api_get_prototype
 
-nlp = en_core_web_sm.load()
-
+# 只在首次使用时下载资源
+try:
+    lemmatizer = WordNetLemmatizer()
+    # 尝试使用lemmatizer测试资源是否已加载
+    lemmatizer.lemmatize("test")
+    print("nltk已加载")
+except LookupError:
+    print("尝试下载nltk")
+    nltk.download('wordnet')
+    lemmatizer = WordNetLemmatizer()
 
 def word_revert(word: str) -> str:
-    """
-    优先使用模型转原型
-    :param word: 目标单词
-    :return: 原型
-    """
-    nlp = spacy.load("en_core_web_sm")
-
-    doc = nlp(word)
-    for token in doc:
-        # 失败
-        if token.lemma_ == word:
-            return use_api_get_prototype(word)
-        # 成功
-        return token.lemma_
-
+    lemmatized_word = lemmatizer.lemmatize(word)
+    if lemmatized_word == word:
+        return use_api_get_prototype(word)
+    return lemmatized_word
 
 if __name__ == '__main__':
     print(word_revert('installed'))

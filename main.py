@@ -179,32 +179,14 @@ class UiMainWindow(QMainWindow):
 
     def load_saved_token(self):
         """加载保存的token"""
-        try:
-            if os.path.exists(self.token_file):
-                with open(self.token_file, 'r') as f:
-                    data = json.load(f)
-                    saved_token = data.get('token', '')
-                    if saved_token:
-                        self.token_input.setText(saved_token)
-                        self.update_output_info("已加载保存的token")
-        except Exception as e:
-            self.update_output_info(f"加载token时出错: {str(e)}")
+        self.token_input.setText(public_info.token)
+        self.update_output_info("已加载保存的token")
+
 
     def save_token(self, token):
-        """保存token到文件"""
+        """保存token到配置文件"""
         try:
-            # 先读取现有配置
-            data = {}
-            if os.path.exists(self.token_file):
-                with open(self.token_file, 'r') as f:
-                    data = json.load(f)
-
-            # 只更新token字段
-            data['token'] = token
-
-            # 写回文件
-            with open(self.token_file, 'w') as f:
-                json.dump(data, f)
+            public_info.token = token
             self.update_output_info("token已保存")
         except Exception as e:
             self.update_output_info(f"保存token时出错: {str(e)}")
@@ -737,12 +719,21 @@ def complete_practice(unit: str, progress: int, task_id=None):
 
 if __name__ == '__main__':
     import sys
-
     # 初始化日志
     main = Log("main")
     main.logger.info("初始化主页面")
     # 路径
-    path = os.path.dirname(__file__)
+    def get_application_path():
+        """获取应用程序路径，兼容开发环境和打包环境"""
+        if getattr(sys, 'frozen', False):
+            # 如果是打包后的环境
+            return os.path.dirname(sys.executable)
+        else:
+            # 如果是开发环境
+            return os.path.dirname(os.path.abspath(__file__))
+
+    # 获取exe所在目录
+    path = get_application_path()
     # 初始化公共组件
     main.logger.info("初始化公共组件")
     public_info = PublicInfo(path)
@@ -752,6 +743,7 @@ if __name__ == '__main__':
     ui.show()
 
     # 设置应用图标（如有需要）
-    # app.setWindowIcon(QtGui.QIcon(path + "/icon/app.ico"))
+    app.setWindowIcon(QtGui.QIcon(path + "/icon.png"))
 
     sys.exit(app.exec())
+
