@@ -35,6 +35,7 @@
 
 ## 使用方法
 
+#### 0.现在可以直接[下载]([https://github.com/whx1216/Cidaren_auto_plus/releases/latest)打包好的可执行程序
 1. 点击 "点我运行.bat" 启动软件
 2. 在软件界面中勾选 "启用Token监控"
 3. 通过微信登录词达人界面
