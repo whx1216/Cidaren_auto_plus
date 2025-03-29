@@ -1,1 +1,11 @@
-{"min_time": 1, "max_time": 5, "spend_min_time": 5, "spend_max_time": 13, "api_choices": 1, "proxy_url": "https://xxxxx/v1/chat/completions", "openai_key": "sk-xxxxx", "model": "gpt-3.5-turbo", "token": ""}
+{
+  "min_time": 0,
+  "max_time": 1,
+  "spend_min_time": 0,
+  "spend_max_time": 1,
+  "api_choices": 1,
+  "proxy_url": "https://xxxx.xxx/v1/chat/completions",
+  "openai_key": "sk-xxxxxxxxxx",
+  "model": "gpt-4o",
+  "token": "63c40e0d32269df5c910049c5ce83edc"
+}
