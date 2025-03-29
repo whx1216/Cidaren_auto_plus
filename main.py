@@ -486,7 +486,7 @@ class UiMainWindow(QMainWindow):
 
             # 开始任务 启动等待页面
             reply = QMessageBox.question(self, f"开始任务{task_name}",
-                                         f"确认开始任务{task_name}吗？\n任务开始后，主页面将消失，系统将在后台自动刷题\n期间请勿关闭cmd窗口，关闭cmd窗口将结束运行\n如果刷题过程中程序报错，请重新打开软件重试",
+                                         f"确认开始任务{task_name}吗？\n任务开始后，主页面将消失，系统将在后台自动刷题\n期间请勿关闭cmd窗口，关闭cmd窗口将结束运行\n如果刷题过程中程序报错，请重新打开软件重试\n注意刷题过程中请不要查看微信词达人\n并确认词达人关闭,以避免可能的bug",
                                          QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
                                          QMessageBox.StandardButton.Yes)
             if reply == QMessageBox.StandardButton.Yes:
