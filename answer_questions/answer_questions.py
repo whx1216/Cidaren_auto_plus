@@ -10,6 +10,8 @@ from util.select_mean import select_mean, handle_query_word_mean, filler_option,
     is_word_exist
 from util.word_revert import word_revert
 from view.error import showError
+from api.llm_api import get_chatgpt_suggestion
+
 import json
 
 query_answer = Log('query_answer')
@@ -99,7 +101,7 @@ def word_form_mean(public_info: PublicInfo) -> int:
         else:
             query_answer.logger.info(f"将{word}转原型")
             # 单词转原型
-            word = word_revert(word)
+            word = word_revert(word,public_info)
     # 请求单词释义
     query_word(public_info, word)
     # 提取释义
@@ -154,40 +156,6 @@ def full_sentence(public_info) -> int or str:
     # submit 1#0,0#2 or 1 应该分开写提升正确率
     return public_info.exam['options'][2]['answer_tag']
 
-
-# full word
-# def complete_sentence(public_info):
-#     '''
-#     {'task_id': 120381820, 'task_type': 1, 'topic_mode': 51, 'stem': {'content': '{}  to  norms', 'remark': '遵守规范', 'ph_us_url': None, 'ph_en_url': None, 'au_addr': None}, 'options': [], 'sound_mark': '', 'ph_en': '', 'ph_us': '', 'answer_num': 1, 'chance_num': 1, 'topic_done_num': 93, 'topic_total': 98, 'w_lens': [7], 'w_len': 7, 'w_tip': 'con', 'tips': '', 'word_type': 1, 'enable_i': 2, 'enable_i_i': 2, 'enable_i_o': 2, 'topic_code': 'lFh3eYdsktiTVlyHeHuLbJevZJeTa1liWpmopJvU1qNWjZhqYHCYb2xgj1WbotDHo6LSV5Njk5VlY2STZGhtbGdrbG6cmWxqk5xlj5SOcmlgbWtkbJiVaGOdaGJoZGlrYmuaaW9oaGJqbmWelG9mkpZlZm6YcWxnaV9okA==', 'answer_state': 1, 'show_card_type': 1}
-# <class 'dict'>
-#     :param public_info:
-#     :return:
-#     '''
-#     query_answer.logger.info("补全单词")
-#     word_len = public_info.exam['w_lens'][0]
-#     # submit not  case sensitive
-#     word_start_with = public_info.exam['w_tip'].lower()
-#     # iterate over all word in the unit
-#     for word in public_info.word_list:
-#         if word.startswith(word_start_with):
-#             query_answer.logger.info(public_info)
-#             print(public_info.exam)
-#             print(type(public_info.exam))
-#             query_answer.logger.info(f'word_start_with：{word_start_with,word.startswith(word_start_with)}')
-#             if len(word) == word_len:
-#                 return word
-#             elif len(word) + 1 == word_len:
-#                 return word + 's'
-#             else:
-#                 result = word_examples(public_info, [word])
-#                 if result:
-#                     return result
-#     query_answer.logger.info(f"找不到答案,提交{word}")
-#     return word
-#
-#
-# import requests  # 用于发送 HTTP 请求
-
 def complete_sentence(public_info):
     '''
     根据 public_info 中的信息补全句子，结合第三方代理调用 ChatGPT API 进行语义匹配。
@@ -216,43 +184,6 @@ def complete_sentence(public_info):
         return word_list[-1] if word_list else ""
 
     # 调用第三方代理的 ChatGPT API
-    def get_chatgpt_suggestion(prompt,public_info):
-        '''
-        通过第三方代理调用 ChatGPT API 获取建议。
-        '''
-        try:
-            # 获取 proxy_url 和 openai_key
-            proxy_url = public_info.proxy_url
-            openai_key = public_info.openai_key
-            model = public_info.model
-
-            if not proxy_url or not openai_key:
-                raise ValueError("配置文件中缺少 proxy_url 或 openai_key")
-
-            # 第三方代理 API 的 URL 和参数
-            headers = {
-                "Authorization": openai_key,
-                "Content-Type": "application/json"
-            }
-            data = {
-                "model": model,  # 使用的模型
-                "messages": [
-                    {"role": "system", "content": "你是一个语言助手，帮助用户选择最合适的单词。"},
-                    {"role": "user", "content": prompt}
-                ],
-                "max_tokens": 500
-            }
-
-            # 发送 POST 请求
-            response = rq.post(proxy_url, headers=headers, json=data)
-            response.raise_for_status()  # 检查请求是否成功
-            result = response.json()
-
-            # 解析返回的结果
-            return result['choices'][0]['message']['content'].strip()
-        except Exception as e:
-            query_answer.logger.error(f"调用第三方代理 API 失败: {e}")
-            return None
 
     # 构建 ChatGPT 的提示词
     prompt = (

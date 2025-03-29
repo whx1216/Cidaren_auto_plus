@@ -5,6 +5,7 @@ import requests as rq
 from api.main_api import query_word
 from log.log import Log
 from util.word_revert import word_revert
+from api.llm_api import get_chatgpt_suggestion
 import json
 
 # log module
@@ -145,80 +146,6 @@ def select_mean(public_info) -> int:
     return random.randint(0, len(options) - 1)
 
 
-
-# def get_chatgpt_suggestion(prompt):
-#     '''
-#     通过第三方代理调用 ChatGPT API 获取建议。
-#     '''
-#     try:
-#         # 第三方代理 API 的 URL 和参数
-#         proxy_url = "https://dzqc.link/v1/chat/completions"  # 替换为实际的代理 URL
-#         headers = {
-#             "Authorization": "sk-cyoM7KuQ9MnO19zuFfAeB7921aCa4f06B0Da069d7fF0Bb22",  # 替换为实际的 API 密钥
-#             "Content-Type": "application/json"
-#         }
-#         data = {
-#             "model": "gpt-3.5-turbo",  # 使用的模型
-#             "messages": [
-#                 {"role": "system", "content": "你是一个语言助手，帮助用户选择最合适的选项。"},
-#                 {"role": "user", "content": prompt}
-#             ],
-#             "max_tokens": 500
-#         }
-#
-#         # 发送 POST 请求
-#         response = rq.post(proxy_url, headers=headers, json=data)
-#         response.raise_for_status()  # 检查请求是否成功
-#         result = response.json()
-#
-#         # 解析返回的结果
-#         return result['choices'][0]['message']['content'].strip()
-#     except Exception as e:
-#         select_module.logger.error(f"调用第三方代理 API 失败: {e}")
-#         return None
-#
-
-
-def get_chatgpt_suggestion(prompt, public_info):
-    '''
-    通过第三方代理调用 ChatGPT API 获取建议。
-    从 JSON 文件中获取 proxy_url 和 openai_key。
-    '''
-    try:
-        # 获取 proxy_url 和 openai_key
-        proxy_url = public_info.proxy_url
-        openai_key = public_info.openai_key
-        model = public_info.model
-
-        if not proxy_url or not openai_key:
-            raise ValueError("配置文件中缺少 proxy_url 或 openai_key")
-
-        # 设置请求头和请求体
-        headers = {
-            "Authorization": openai_key,
-            "Content-Type": "application/json"
-        }
-        data = {
-            "model": model,  # 使用的模型
-            "messages": [
-                {"role": "system", "content": "你是一个语言助手，帮助用户选择最合适的选项。"},
-                {"role": "user", "content": prompt}
-            ],
-            "max_tokens": 500
-        }
-
-        # 发送 POST 请求
-        response = rq.post(proxy_url, headers=headers, json=data)
-        response.raise_for_status()  # 检查请求是否成功
-        result = response.json()
-
-        # 解析返回的结果
-        return result['choices'][0]['message']['content'].strip()
-    except Exception as e:
-        print(f"调用第三方代理 API 失败: {e}")
-        return None
-
-
 # select match word
 def select_match_word(public_info, word_mean) -> int:
     options = filler_option(public_info)
@@ -248,7 +175,7 @@ def is_word_exist(public_info, option) -> bool:
         return True
     else:
         select_module.logger.info('转原型')
-        revert_option = word_revert(option)
+        revert_option = word_revert(option,public_info)
         if revert_option in public_info.word_list:
             query_word(public_info, revert_option)
             return True
