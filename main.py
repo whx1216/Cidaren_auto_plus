@@ -22,6 +22,7 @@ from log.log import Log
 from publicInfo.publicInfo import PublicInfo
 from util.basic_util import get_todo_task, extract_book_word, query_word_unit, get_choices_task
 from util.handle_word_list import handle_word_result
+from get_path import get_application_path
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 
@@ -722,16 +723,6 @@ if __name__ == '__main__':
     # 初始化日志
     main = Log("main")
     main.logger.info("初始化主页面")
-    # 路径
-    def get_application_path():
-        """获取应用程序路径，兼容开发环境和打包环境"""
-        if getattr(sys, 'frozen', False):
-            # 如果是打包后的环境
-            return os.path.dirname(sys.executable)
-        else:
-            # 如果是开发环境
-            return os.path.dirname(os.path.abspath(__file__))
-
     # 获取exe所在目录
     path = get_application_path()
     # 初始化公共组件
