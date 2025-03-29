@@ -264,16 +264,21 @@ def complete_sentence(public_info):
     )
     # print(prompt)
     # 获取 ChatGPT 的建议
-    suggested_word = get_chatgpt_suggestion(prompt,public_info).strip("'").strip('"')
-    # print(suggested_word)
-    # 如果 ChatGPT 返回了建议，优先使用
-    if suggested_word and suggested_word in candidate_words:
+    suggested_word = get_chatgpt_suggestion(prompt, public_info)
+    if (suggested_word is not None) and (suggested_word and suggested_word in candidate_words):
+        suggested_word = suggested_word.strip("'").strip('"')
         query_answer.logger.info(f"ChatGPT 推荐单词: {suggested_word}")
         return suggested_word
+    else:
+        # 如果 ChatGPT 没有返回有效建议，尝试匹配长度完全相等的单词
+        exact_length_words = [word for word in candidate_words if len(word) == word_len]
+        if exact_length_words:
+            query_answer.logger.info(f"返回长度完全匹配的单词: {exact_length_words[0]}")
+            return exact_length_words[0]
 
-    # 如果 ChatGPT 没有返回有效建议，返回第一个符合条件的候选单词
-    query_answer.logger.info("ChatGPT 未返回有效建议，返回第一个候选单词")
-    return candidate_words[0]
+        # 如果没有长度完全匹配的单词，返回第一个符合条件的候选单词
+        query_answer.logger.info("ChatGPT 未返回有效建议，返回第一个候选单词")
+        return candidate_words[0]
 
 def answer(public_info, mode):
     if mode == 11:
