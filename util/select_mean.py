@@ -90,7 +90,6 @@ def select_mean(public_info) -> int:
         )
 
         # 调用ChatGPT进行判断
-
         selected_option_index = get_chatgpt_suggestion(prompt,public_info)
         select_module.logger.info(f"{prompt}")
         select_module.logger.info(f"{selected_option_index}")
@@ -106,17 +105,25 @@ def select_mean(public_info) -> int:
                     select_module.logger.info(f"ChatGPT推荐选项: 第{selected_option_index + 1}个选项[{options[selected_option_index]}]")
                     return selected_option_index
 
-        # 如果没有返回有效建议，选择第一个匹配的选项
+        # 如果ChatGPT未返回有效建议，记录日志
         select_module.logger.info(f"gpt回复：{selected_option_index}")
-        select_module.logger.warning("ChatGPT未返回有效建议，选择第一个匹配的选项")
+        select_module.logger.warning("ChatGPT未返回有效建议，继续尝试相似度匹配")
+        # 不直接返回indexRecode[0]，而是继续执行相似度匹配
+    elif len(indexRecode) == 1:
+        # 如果只有一个完全匹配项，直接返回
+        select_module.logger.info(f"找到唯一匹配项，第{indexRecode[0] + 1}个选项[{options[indexRecode[0]]}]")
         return indexRecode[0]
 
-    # 如果没有完全匹配，尝试字对字的相似度匹配
-    select_module.logger.info("完全匹配失败，尝试字对字匹配")
+    # 已有完全匹配但ChatGPT判断失败，或没有完全匹配时，尝试字对字的相似度匹配
+    select_module.logger.info("尝试字对字相似度匹配")
     max_similarity = 0
     best_match_index = -1
 
-    for index, option in enumerate(options, 0):
+    # 如果有完全匹配项，优先在这些项中进行相似度比较
+    match_candidates = indexRecode if indexRecode else range(len(options))
+
+    for index in match_candidates:
+        option = options[index]
         for mean in public_info.word_means:
             # 计算字对字相似度
             similarity = calculate_similarity(option, mean)
@@ -128,8 +135,13 @@ def select_mean(public_info) -> int:
         select_module.logger.info(f"字对字匹配选项，第{best_match_index + 1}个选项[{options[best_match_index]}]，相似度: {max_similarity}")
         return best_match_index
 
+    # 所有匹配方法失败，如果有完全匹配项，选择第一个
+    if indexRecode:
+        select_module.logger.warning("相似度匹配失败，选择第一个完全匹配项")
+        return indexRecode[0]
+
     # 匹配失败，随机提交一个
-    select_module.logger.warning("匹配失败，随机提交")
+    select_module.logger.warning("所有匹配方法失败，随机提交")
     return random.randint(0, len(options) - 1)
 
 
