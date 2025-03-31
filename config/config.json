@@ -4,8 +4,9 @@
   "spend_min_time": 0,
   "spend_max_time": 1,
   "api_choices": 1,
-  "proxy_url": "https://xxxx.xxx/v1/chat/completions",
-  "openai_key": "sk-xxxxxxxxxx",
+  "proxy_url": "https://xxxxx.xxx/v1/chat/completions",
+  "openai_key": "sk-xxxxxxxxxxxxxxxxxxxxxx",
   "model": "gpt-4o",
-  "token": "63c40e0d32269df5c910049c5ce83edc"
+  "model_ollama": "",
+  "token": ""
 }
