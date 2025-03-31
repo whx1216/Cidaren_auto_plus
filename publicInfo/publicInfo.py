@@ -26,6 +26,7 @@ class PublicInfo:
             self._proxy_url = user_config['proxy_url']
             self._openai_key = user_config['openai_key']
             self._model = user_config['model']
+            self._model_ollama = user_config['model_ollama']
             self._token = user_config['token']
         # 任务列表
         self.task_list = ""
@@ -121,6 +122,10 @@ class PublicInfo:
     def model(self) -> str:
         return self._model
 
+    @property
+    def model_ollama(self) -> str:
+        return self._model_ollama
+
 
     def check_and_create_config(self):
         """检查配置文件是否存在，不存在则创建默认配置文件"""
@@ -142,6 +147,7 @@ class PublicInfo:
                 "proxy_url": "https://xxxx.xxx/v1/chat/completions",
                 "openai_key": "sk-xxxxxx",
                 "model": "gpt-4o",
+                "model_ollama": None,
                 "token": ""
             }
 
@@ -152,7 +158,7 @@ class PublicInfo:
             log.logger.info("配置文件不存在，已创建默认配置文件")
 
 
-    def input_info(self, min_time, max_time, min_time_2, max_time_2, choices_api, proxy_url=None, openai_key=None, model=None, token=None):
+    def input_info(self, min_time, max_time, min_time_2, max_time_2, choices_api, proxy_url=None, openai_key=None, model=None , model_ollama=None , token=None):
         self._min_time = min_time
         self._max_time = max_time
         self._spend_min_time = min_time_2
@@ -166,6 +172,8 @@ class PublicInfo:
             self._openai_key = openai_key
         if model is not None:
             self._model = model
+        if model_ollama is not None:
+            self._model_ollama = model_ollama
         if token is not None:
             self._token = token
 
@@ -179,6 +187,7 @@ class PublicInfo:
             data['proxy_url'] = self._proxy_url
             data['openai_key'] = self._openai_key
             data['model'] = self._model
+            data['model_ollama'] = self._model_ollama
             data['token'] = self._token
         data_str = json.dumps(data, indent=2)
         with open(os.path.join(self.path, "config", "config.json"), 'w', encoding="utf-8") as f:

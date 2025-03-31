@@ -25,25 +25,18 @@
 - Python 3.10+ 环境
 - 网络连接（用于API调用）
 
-## 安装步骤
-
-1. 克隆或下载本仓库到本地
-2. 在config文件中配置以下参数：
-
-- `proxy_url`: 代理URL
-- `openai_key`: OpenAI API密钥
-
 ## 使用方法
 
-#### 0.现在可以直接[下载](https://github.com/whx1216/Cidaren_auto_plus/releases/latest)打包好的可执行程序
+#### 0.现在可以直接[下载](https://github.com/whx1216/Cidaren_auto_plus/releases/latest)打包好的可执行程序点击.exe直接运行
 1. 点击 "点我运行.bat" 启动软件
-2. 在软件界面中勾选 "启用Token监控"
-3. 通过微信登录词达人界面
-4. 程序获取到token后将自动登录并开始完成任务
+2. 在设置-首选项-api设置中配置相关设置
+模型可以二选一填写，都有填写优先使用ollama,chatgpt增加容错
+3. 在软件界面中勾选 "启用Token监控"
+4. 通过微信登录词达人界面 
+5. 在程序获取到token后点击登录并开始完成任务
 
 ## 注意事项
 
-- 本项目使用ChatGPT进行匹配优化，如需使用本地LLM模型可自行修改相关代码
 - 使用本软件可能违反词达人平台用户协议，请自行承担风险
 - 建议仅用于学习和研究用途
 
