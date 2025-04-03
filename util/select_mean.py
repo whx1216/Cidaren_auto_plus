@@ -5,7 +5,7 @@ import requests as rq
 from api.main_api import query_word
 from log.log import Log
 from util.word_revert import word_revert
-from api.llm_api import get_chatgpt_suggestion
+from api.llm_api import *
 import json
 
 # log module
@@ -91,24 +91,20 @@ def select_mean(public_info) -> int:
         )
 
         # 调用ChatGPT进行判断
-        selected_option_index = get_chatgpt_suggestion(prompt,public_info)
-        select_module.logger.info(f"{prompt}")
-        select_module.logger.info(f"{selected_option_index}")
+        selected_option_index = get_llm_suggestion(prompt,public_info,mode='number')
+        # select_module.logger.info(f"{prompt}")
+        # select_module.logger.info(f"{selected_option_index}")
 
         # 增加更宽容的处理方式：提取数字
         if selected_option_index is not None:
-            # 使用正则表达式匹配数字（包括带有其他字符的情况）
-            import re
-            match = re.search(r'\d+', selected_option_index)
-            if match:
-                selected_option_index = int(match.group()) - 1  # 提取并转换为数字
-                if 0 <= selected_option_index < len(options):
-                    select_module.logger.info(f"ChatGPT推荐选项: 第{selected_option_index + 1}个选项[{options[selected_option_index]}]")
-                    return selected_option_index
+            selected_option_index = int(selected_option_index) - 1
+            if 0 <= selected_option_index < len(options):
+                select_module.logger.info(f"llm推荐选项: 第{selected_option_index + 1}个选项[{options[selected_option_index]}]")
+                return selected_option_index
 
         # 如果ChatGPT未返回有效建议，记录日志
-        select_module.logger.info(f"gpt回复：{selected_option_index}")
-        select_module.logger.warning("ChatGPT未返回有效建议，继续尝试相似度匹配")
+        select_module.logger.info(f"llm回复：{selected_option_index}")
+        select_module.logger.warning("llm未返回有效建议，继续尝试相似度匹配")
         # 不直接返回indexRecode[0]，而是继续执行相似度匹配
     elif len(indexRecode) == 1:
         # 如果只有一个完全匹配项，直接返回

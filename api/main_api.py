@@ -89,7 +89,7 @@ def select_all_word(word_info, task_id: int, ) -> None:
     # 取消键值对的空格(紧密排版)
     word_map = json.dumps(word_info, separators=(',', ':'))
     #是否重做错题 1跳过 2不跳过
-    chose_err_item = 2
+    chose_err_item = 1
     source_str = f'chose_err_item={chose_err_item}&task_id={task_id}&timestamp={timestamp}&version=2.6.1.231204&word_map={word_map}ajfajfamsnfaflfasakljdlalkflak'
     sign = encrypt_md5(source_str)
     data = {"task_id": task_id, "word_map": word_info, "chose_err_item": chose_err_item,

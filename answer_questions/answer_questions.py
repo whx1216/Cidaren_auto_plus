@@ -10,7 +10,7 @@ from util.select_mean import select_mean, handle_query_word_mean, filler_option,
     is_word_exist
 from util.word_revert import word_revert
 from view.error import showError
-from api.llm_api import get_chatgpt_suggestion
+from api.llm_api import *
 
 import json
 
@@ -88,29 +88,86 @@ def word_form_mean(public_info: PublicInfo) -> int:
     # is listen
     exam = public_info.exam['stem']['content'].replace(' ', "")
     # 题干格式xxx{word}xxx
-    query_answer.logger.info(f"从{exam}提取单词")
+    # query_answer.logger.info(f"从{exam}提取单词")
     word = re.findall("{(.*?)}", exam)
-    query_answer.logger.info(f"提取到{word}")
+    # query_answer.logger.info(f"提取到{word}")
     word = word[0] if word else exam
-    # 判断单词是否在单词列表中
-    if word not in public_info.word_list:
-        if word.endswith("ed") and word[:-2] in public_info.word_list:
-            word = word[:-2]
-        elif word.endswith("ing") and word[:-3] in public_info.word_list:
-            word = word[:-3]
-        else:
-            query_answer.logger.info(f"将{word}转原型")
-            # 单词转原型
-            word = word_revert(word,public_info)
-    # 请求单词释义
-    query_word(public_info, word)
-    # 提取释义
-    handle_query_word_mean(public_info)
-    query_answer.logger.info('选择意思')
-    # 选择正确释义
-    return select_mean(public_info)
+    original_word = word
 
+    # 尝试在词表中查找单词，包括各种变形
+    found_in_list = False
 
+    # 先检查原始单词是否在列表中
+    if word in public_info.word_list:
+        found_in_list = True
+    # 检查小写形式
+    elif word.lower() in public_info.word_list:
+        word = word.lower()
+        found_in_list = True
+    # 检查常见变形
+    elif word.endswith("ed") and word[:-2] in public_info.word_list:
+        word = word[:-2]
+        found_in_list = True
+    elif word.endswith("ing") and word[:-3] in public_info.word_list:
+        word = word[:-3]
+        found_in_list = True
+    elif word.lower().endswith("ed") and word.lower()[:-2] in public_info.word_list:
+        word = word.lower()[:-2]
+        found_in_list = True
+    elif word.lower().endswith("ing") and word.lower()[:-3] in public_info.word_list:
+        word = word.lower()[:-3]
+        found_in_list = True
+
+    # 如果上述方法都找不到，使用LLM尝试获取原型，设置最大尝试次数
+    if not found_in_list:
+        query_answer.logger.info(f"将{word}转原型")
+        max_attempts = 3
+        for attempt in range(max_attempts):
+            try:
+                reverted_word = word_revert(original_word, public_info)
+                query_answer.logger.info(f"尝试 {attempt+1}/{max_attempts}: LLM返回的原型: {reverted_word}")
+
+                # 检查转换后的词是否在词表中
+                if reverted_word in public_info.word_list:
+                    word = reverted_word
+                    found_in_list = True
+                    break
+                # 检查小写形式
+                elif reverted_word.lower() in public_info.word_list:
+                    word = reverted_word.lower()
+                    found_in_list = True
+                    break
+
+                # 如果这是最后一次尝试，但仍未找到匹配项，加入更多检查
+                if attempt == max_attempts - 1:
+                    # 检查plurals (s结尾)
+                    if word.endswith("s") and word[:-1] in public_info.word_list:
+                        word = word[:-1]
+                        found_in_list = True
+                    # 其他可能的变形...
+            except Exception as e:
+                query_answer.logger.error(f"转换原型时出错: {e}")
+
+    # 如果尝试了所有方法后仍然找不到，回退到原始单词的小写形式
+    # 这样至少不会崩溃，即使答案可能不正确
+    if not found_in_list:
+        word = original_word.lower()
+        query_answer.logger.warning(f"警告: 无法在词表中找到 '{original_word}' 或其变形，使用原始单词继续")
+
+    query_answer.logger.info(f"最终使用单词: {word}")
+
+    try:
+        # 请求单词释义
+        query_word(public_info, word)
+        # 提取释义
+        handle_query_word_mean(public_info)
+        query_answer.logger.info('选择意思')
+        # 选择正确释义
+        return select_mean(public_info)
+    except ValueError as e:
+        query_answer.logger.error(f"处理单词释义时出错: {e}")
+        # 如果出错，返回一个默认选项，防止程序崩溃
+        return 0  # 或者其他合理的默认选择
 # mean to word
 def mean_to_word(public_info):
     # mode 17
@@ -191,14 +248,14 @@ def complete_sentence(public_info):
         f"- 句子模板: '{content}'\n"
         f"- 中文意思: '{remark}'\n"
         f"- 候选单词: {', '.join(candidate_words)}\n"
+        f"- 输出单词长度: {', '.join(str(word_len))} 字母\n"
         f"重要！请直接返回最合适的单词或选择的单词的形态变体，不要添加其他内容。输出内容应当只有一个单词。"
     )
     # print(prompt)
     # 获取 ChatGPT 的建议
-    suggested_word = get_chatgpt_suggestion(prompt, public_info)
+    suggested_word = get_llm_suggestion(prompt, public_info , mode="word")
     if (suggested_word is not None) and (suggested_word and suggested_word in candidate_words):
-        suggested_word = suggested_word.strip("'").strip('"')
-        query_answer.logger.info(f"ChatGPT 推荐单词: {suggested_word}")
+        query_answer.logger.info(f"llm 推荐单词: {suggested_word}")
         return suggested_word
     else:
         # 如果 ChatGPT 没有返回有效建议，尝试匹配长度完全相等的单词
@@ -208,7 +265,7 @@ def complete_sentence(public_info):
             return exact_length_words[0]
 
         # 如果没有长度完全匹配的单词，返回第一个符合条件的候选单词
-        query_answer.logger.info("ChatGPT 未返回有效建议，返回第一个候选单词")
+        query_answer.logger.info("llm 未返回有效建议，返回第一个候选单词")
         return candidate_words[0]
 
 def answer(public_info, mode):
