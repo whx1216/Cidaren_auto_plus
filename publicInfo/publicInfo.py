@@ -128,34 +128,63 @@ class PublicInfo:
 
 
     def check_and_create_config(self):
-        """检查配置文件是否存在，不存在则创建默认配置文件"""
+        """检查配置文件是否存在，不存在则创建默认配置文件；如果存在但缺少字段，则添加默认值"""
         config_dir = os.path.join(self.path, "config")
         config_file = os.path.join(config_dir, "config.json")
+
+        # 定义默认配置
+        default_config = {
+            "min_time": 1,
+            "max_time": 2,
+            "spend_min_time": 1,
+            "spend_max_time": 5,
+            "api_choices": 1,
+            "proxy_url": "https://xxxx.xxx/v1/chat/completions",
+            "openai_key": "sk-xxxxxx",
+            "model": "gpt-4o",
+            "model_ollama": None,
+            "token": ""
+        }
 
         # 检查配置目录是否存在，不存在则创建
         if not os.path.exists(config_dir):
             os.makedirs(config_dir)
 
-        # 检查配置文件是否存在，不存在则创建默认配置
+        # 检查配置文件是否存在
         if not os.path.exists(config_file):
-            default_config = {
-                "min_time": 1,
-                "max_time": 2,
-                "spend_min_time": 1,
-                "spend_max_time": 5,
-                "api_choices": 1,
-                "proxy_url": "https://xxxx.xxx/v1/chat/completions",
-                "openai_key": "sk-xxxxxx",
-                "model": "gpt-4o",
-                "model_ollama": None,
-                "token": ""
-            }
-
+            # 配置文件不存在，创建默认配置
             with open(config_file, 'w', encoding='utf-8') as f:
                 json.dump(default_config, f, indent=2, ensure_ascii=False)
 
             log = Log("public_info")
             log.logger.info("配置文件不存在，已创建默认配置文件")
+        else:
+            # 配置文件存在，检查是否缺少字段
+            try:
+                with open(config_file, 'r', encoding='utf-8') as f:
+                    current_config = json.load(f)
+
+                # 检查是否有字段缺失
+                updated = False
+                for key, value in default_config.items():
+                    if key not in current_config:
+                        current_config[key] = value
+                        updated = True
+
+                # 如果有字段缺失，更新配置文件
+                if updated:
+                    with open(config_file, 'w', encoding='utf-8') as f:
+                        json.dump(current_config, f, indent=2, ensure_ascii=False)
+
+                    log = Log("public_info")
+                    log.logger.info("配置文件缺少字段，已添加默认值")
+            except Exception as e:
+                # 如果读取配置文件出错，创建新的默认配置
+                with open(config_file, 'w', encoding='utf-8') as f:
+                    json.dump(default_config, f, indent=2, ensure_ascii=False)
+
+                log = Log("public_info")
+                log.logger.error(f"读取配置文件出错: {str(e)}，已重新创建默认配置文件")
 
 
     def input_info(self, min_time, max_time, min_time_2, max_time_2, choices_api, proxy_url=None, openai_key=None, model=None , model_ollama=None , token=None):
